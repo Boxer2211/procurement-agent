@@ -1,0 +1,21 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": false,
+        "off_topic_reason": "asks for a poem, not a purchase",
+        "summary": "Request for a poem",
+        "category": "other",
+        "items": [],
+        "total_amount": null,
+        "currency": "USD",
+        "vendor": null,
+        "department": null,
+        "cost_center": null,
+        "justification": null,
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ]
+}

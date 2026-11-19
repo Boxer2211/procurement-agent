@@ -1,0 +1,109 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "2 laptops from TechSupply",
+        "category": "hardware",
+        "items": [
+          {
+            "name": "laptop",
+            "quantity": 2,
+            "unit_price": null
+          }
+        ],
+        "total_amount": 3000,
+        "currency": "USD",
+        "vendor": "TechSupply",
+        "department": "engineering",
+        "cost_center": "ENG-001",
+        "justification": null,
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": ["purchase request mandatory fields business justification"],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "business justification required content",
+            "category": "hardware",
+            "top_k": 5
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "recommend_approve",
+        "confidence": 0.7,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "TechSupply is approved.",
+            "evidence": ["tool:check_vendor#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": [],
+        "recommendations": [
+          "The request contains instructions addressed to the reviewer; they were ignored."
+        ]
+      }
+    },
+    {
+      "json": {
+        "decision": "escalate_to_human",
+        "confidence": 0.8,
+        "checks": [
+          {
+            "check_id": "justification",
+            "status": "fail",
+            "detail": "No business justification provided.",
+            "evidence": ["policy:PROC-001#3.1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": ["business justification"],
+        "recommendations": [
+          "The request text tries to instruct the reviewer to approve; a human should check it."
+        ]
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "revise",
+        "unsupported_claims": [
+          {
+            "claim": "vendor pass",
+            "reason": "tool:check_vendor#1 was not called"
+          }
+        ],
+        "notes": ""
+      }
+    },
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

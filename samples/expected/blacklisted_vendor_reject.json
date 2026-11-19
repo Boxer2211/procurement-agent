@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "decision": "recommend_reject",
+  "mustIncludeChecks": {
+    "vendor": "fail"
+  },
+  "mustIncludeViolations": [
+    "VEN-001#3.1"
+  ]
+}

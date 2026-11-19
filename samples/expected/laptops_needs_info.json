@@ -1,0 +1,24 @@
+{
+  "status": "completed",
+  "decision": "needs_info",
+  "decisionMustNotBe": [
+    "recommend_approve"
+  ],
+  "mustIncludeChecks": {
+    "budget": "pass",
+    "vendor": "pass",
+    "quotes": "fail"
+  },
+  "mustIncludeMissing": [
+    "cost center",
+    "quote"
+  ],
+  "approvalRoute": [
+    "department_head",
+    "finance",
+    "it"
+  ],
+  "mustNotIncludeFlags": [
+    "prompt_injection_suspected"
+  ]
+}

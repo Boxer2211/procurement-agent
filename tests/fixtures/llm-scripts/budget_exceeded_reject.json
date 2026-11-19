@@ -1,0 +1,63 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "CloudNimbus analytics add-on licence for the marketing campaign team",
+        "category": "software",
+        "items": [
+          { "name": "CloudNimbus analytics add-on (1 year)", "quantity": 1, "unit_price": 3000 }
+        ],
+        "total_amount": 3000,
+        "currency": "USD",
+        "vendor": "CloudNimbus",
+        "department": "marketing",
+        "cost_center": "MKT-7",
+        "justification": "the 6-person campaign team needs to build dashboards",
+        "provided_documents": ["security_assessment"],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": ["remaining budget exceeded", "SaaS security assessment"],
+        "rationale": "Small SaaS purchase; budget is the main risk."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        { "name": "check_vendor", "input": { "vendor_name": "CloudNimbus" } },
+        {
+          "name": "get_approval_route",
+          "input": { "amount": 3000, "currency": "USD", "category": "software" }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "recommend_approve",
+        "confidence": 0.7,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "CloudNimbus is an approved software vendor.",
+            "evidence": ["tool:check_vendor#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": [],
+        "recommendations": []
+      }
+    }
+  ],
+  "verify": [
+    { "json": { "verdict": "ok", "unsupported_claims": [], "notes": "Vendor claim is grounded." } }
+  ]
+}

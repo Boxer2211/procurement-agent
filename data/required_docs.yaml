@@ -1,0 +1,42 @@
+# Documents required per category / amount. Enforced by get_required_documents + rules engine.
+documents:
+  - doc_id: business_justification
+    description: Business justification (problem, users, impact if not purchased)
+    when: {min_amount_exclusive: 1000}
+    rule_id: "PROC-001#3.1"
+  - doc_id: cost_center
+    description: Cost center to be charged
+    when: {}
+    rule_id: "BUD-001#2.2"
+  - doc_id: vendor_quotes
+    description: Written quotes (count per approval matrix)
+    when: {}
+    rule_id: "PROC-001#4.2"
+  - doc_id: hardware_specification
+    description: Model or specification (CPU, RAM, storage, screen)
+    when: {categories: [hardware]}
+    rule_id: "HW-STD-001#2.1"
+  - doc_id: security_assessment
+    description: IT Security assessment (SOC 2/ISO 27001, data residency, SSO)
+    when: {categories: [software]}
+    rule_id: "SW-001#3.1"
+  - doc_id: license_user_list
+    description: Named users or team and headcount for the licences
+    when: {categories: [software]}
+    rule_id: "SW-001#2.2"
+  - doc_id: statement_of_work
+    description: Statement of work (deliverables, timeline, acceptance, pricing)
+    when: {categories: [services]}
+    rule_id: "SVC-001#2.1"
+  - doc_id: nda
+    description: Signed non-disclosure agreement
+    when: {categories: [services]}
+    rule_id: "SVC-001#2.2"
+  - doc_id: master_services_agreement
+    description: Signed MSA reviewed by Legal
+    when: {categories: [services], min_amount_exclusive: 10000}
+    rule_id: "SVC-001#2.3"
+  - doc_id: vendor_onboarding_form
+    description: Vendor onboarding (form, tax/banking details, sanctions screening)
+    when: {vendor_status: [unknown, pending]}
+    rule_id: "VEN-001#2.1"

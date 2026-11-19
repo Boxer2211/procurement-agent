@@ -1,0 +1,91 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "3 months of backend development by DevPartners",
+        "category": "services",
+        "items": [
+          {
+            "name": "backend development (3 months)",
+            "quantity": null,
+            "unit_price": null
+          }
+        ],
+        "total_amount": 18000,
+        "currency": "USD",
+        "vendor": "DevPartners",
+        "department": "engineering",
+        "cost_center": "ENG-300",
+        "justification": "two engineers are on parental leave and the payments API deadline is in February",
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": [
+          "statement of work NDA services",
+          "master services agreement above 10000"
+        ],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "statement of work NDA services",
+            "category": "services",
+            "top_k": 5
+          }
+        },
+        {
+          "name": "check_vendor",
+          "input": {
+            "vendor_name": "DevPartners"
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "needs_info",
+        "confidence": 0.85,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "DevPartners is an approved services vendor.",
+            "evidence": ["tool:check_vendor#1"]
+          },
+          {
+            "check_id": "documents",
+            "status": "fail",
+            "detail": "SOW and NDA are required for every services purchase.",
+            "evidence": ["tool:search_policies#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": ["statement of work", "signed NDA"],
+        "recommendations": []
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

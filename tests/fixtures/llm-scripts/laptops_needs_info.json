@@ -1,0 +1,133 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "5 laptops for the development team from TechSupply",
+        "category": "hardware",
+        "items": [
+          {
+            "name": "laptop",
+            "quantity": 5,
+            "unit_price": null
+          }
+        ],
+        "total_amount": 7500,
+        "currency": "USD",
+        "vendor": "TechSupply",
+        "department": "engineering",
+        "cost_center": null,
+        "justification": "for the development team",
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": [
+          "three quotes threshold purchases above 5000",
+          "developer laptop price cap"
+        ],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "three quotes threshold purchases above 5000",
+            "category": "hardware",
+            "top_k": 5
+          }
+        },
+        {
+          "name": "get_budget",
+          "input": {
+            "department": "engineering",
+            "category": "hardware"
+          }
+        },
+        {
+          "name": "check_vendor",
+          "input": {
+            "vendor_name": "TechSupply"
+          }
+        },
+        {
+          "name": "get_approval_route",
+          "input": {
+            "amount": 7500,
+            "currency": "USD",
+            "category": "hardware"
+          }
+        }
+      ]
+    },
+    {
+      "toolCalls": [
+        {
+          "name": "get_required_documents",
+          "input": {
+            "category": "hardware",
+            "amount": 7500,
+            "currency": "USD",
+            "vendor_status": "approved"
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "needs_info",
+        "confidence": 0.82,
+        "checks": [
+          {
+            "check_id": "budget",
+            "status": "pass",
+            "detail": "Remaining Q4 hardware budget is $18,200; $7,500 fits.",
+            "evidence": ["tool:get_budget#1"]
+          },
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "TechSupply is an approved hardware vendor until 2027-03-31.",
+            "evidence": ["tool:check_vendor#1"]
+          },
+          {
+            "check_id": "quotes",
+            "status": "fail",
+            "detail": "Purchases above $5,000 require three written quotes; none provided.",
+            "evidence": ["policy:PROC-001#4.2", "tool:get_approval_route#1"]
+          },
+          {
+            "check_id": "documents",
+            "status": "fail",
+            "detail": "Laptop specification and cost center are missing.",
+            "evidence": ["tool:get_required_documents#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": ["cost center", "3 vendor quotes", "laptop model/specification"],
+        "recommendations": [
+          "Attach three vendor quotes and the laptop specification, then resubmit."
+        ]
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

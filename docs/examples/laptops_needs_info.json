@@ -1,0 +1,109 @@
+{
+  "run_id": "<run_id>",
+  "status": "completed",
+  "decision": "needs_info",
+  "confidence": 0.82,
+  "request": {
+    "is_procurement_request": true,
+    "off_topic_reason": null,
+    "summary": "5 laptops for the development team from TechSupply",
+    "category": "hardware",
+    "items": [
+      {
+        "name": "laptop",
+        "quantity": 5,
+        "unit_price": null
+      }
+    ],
+    "total_amount": 7500,
+    "currency": "USD",
+    "vendor": "TechSupply",
+    "department": "engineering",
+    "cost_center": null,
+    "justification": "for the development team",
+    "provided_documents": [],
+    "quotes_count": null
+  },
+  "checks": [
+    {
+      "check_id": "budget",
+      "status": "pass",
+      "detail": "Total $7,500.00 fits the remaining budget of $18,200.00 (2026-Q4).",
+      "evidence": [
+        "tool:get_budget#1"
+      ]
+    },
+    {
+      "check_id": "vendor",
+      "status": "pass",
+      "detail": "TechSupply is an approved vendor (contract until 2027-03-31).",
+      "evidence": [
+        "tool:check_vendor#1"
+      ]
+    },
+    {
+      "check_id": "quotes",
+      "status": "fail",
+      "detail": "Purchases above $5,000 need 3 written quotes; 0 provided.",
+      "evidence": [
+        "policy:PROC-001#4.2",
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "documents",
+      "status": "fail",
+      "detail": "Missing documents: hardware_specification.",
+      "evidence": [
+        "tool:get_required_documents#1"
+      ]
+    },
+    {
+      "check_id": "completeness",
+      "status": "fail",
+      "detail": "Missing mandatory fields: cost center.",
+      "evidence": []
+    },
+    {
+      "check_id": "approval_route",
+      "status": "pass",
+      "detail": "Requires approval by: department_head, finance, it.",
+      "evidence": [
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "justification",
+      "status": "warn",
+      "detail": "Justification \"for the development team\" is too generic for a purchase above $1,000.",
+      "evidence": []
+    }
+  ],
+  "violations": [],
+  "missing_information": [
+    "cost center",
+    "3 more vendor quote(s) (3 required, 0 provided)",
+    "a specific business justification (problem, users, impact if not purchased)",
+    "hardware_specification"
+  ],
+  "approval_route": [
+    "department_head",
+    "finance",
+    "it"
+  ],
+  "recommendations": [
+    "Attach three vendor quotes and the laptop specification, then resubmit."
+  ],
+  "flags": [],
+  "verification": {
+    "verifier_model": "claude-sonnet-5-5",
+    "verdict": "ok",
+    "unsupported_claims": [],
+    "invalid_evidence": [],
+    "notes": "Grounded in the cited evidence.",
+    "revisions": 0
+  },
+  "prompt_version": "v1",
+  "summary": "Recommendation: NEEDS MORE INFORMATION (confidence 82%)\nRequest: 5 laptops for the development team from TechSupply — $7,500.00 (engineering, hardware)\n\nChecks:\n  [FAIL] quotes: Purchases above $5,000 need 3 written quotes; 0 provided.\n  [FAIL] documents: Missing documents: hardware_specification.\n  [FAIL] completeness: Missing mandatory fields: cost center.\n  [WARN] justification: Justification \"for the development team\" is too generic for a purchase above $1,000.\n  [PASS] budget: Total $7,500.00 fits the remaining budget of $18,200.00 (2026-Q4).\n  [PASS] vendor: TechSupply is an approved vendor (contract until 2027-03-31).\n  [PASS] approval route: Requires approval by: department_head, finance, it.\n\nMissing information:\n  - cost center\n  - 3 more vendor quote(s) (3 required, 0 provided)\n  - a specific business justification (problem, users, impact if not purchased)\n  - hardware specification\n\nApproval route: department head → finance → it\n\nNext steps:\n  - Attach three vendor quotes and the laptop specification, then resubmit.\n\nThis is an automated pre-check. The final decision is made by the approvers listed above.",
+  "error": null
+}

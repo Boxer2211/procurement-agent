@@ -1,0 +1,5 @@
+{
+  "slug": "blacklisted_vendor_reject",
+  "business_case": "Blacklisted vendor must be rejected by hard rules",
+  "request": "Operations needs 3 docking stations at $250 each from ShadyCorp for the warehouse office. Cost center OPS-12."
+}

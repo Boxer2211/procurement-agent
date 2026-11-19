@@ -1,0 +1,34 @@
+%%{init: {'flowchart': {'curve': 'linear'}}}%%
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	guard(guard)
+	extract(extract)
+	plan(plan)
+	agent(agent)
+	tools(tools)
+	facts(facts)
+	rules(rules)
+	verify(verify)
+	compose(compose)
+	human(human)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> guard;
+	facts --> rules;
+	human --> __end__;
+	plan --> agent;
+	rules --> verify;
+	tools --> agent;
+	guard -.-> extract;
+	guard -.-> compose;
+	extract -.-> plan;
+	extract -.-> compose;
+	agent -.-> tools;
+	agent -.-> facts;
+	verify -.-> agent;
+	verify -.-> compose;
+	compose -.-> human;
+	compose -.-> __end__;
+	agent -.-> agent;
+	classDef default fill:#f2f0ff,line-height:1.2;
+	classDef first fill-opacity:0;
+	classDef last fill:#bfb6fc;

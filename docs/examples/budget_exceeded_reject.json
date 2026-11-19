@@ -1,0 +1,115 @@
+{
+  "run_id": "<run_id>",
+  "status": "completed",
+  "decision": "recommend_reject",
+  "confidence": 0.95,
+  "request": {
+    "is_procurement_request": true,
+    "off_topic_reason": null,
+    "summary": "CloudNimbus analytics add-on licence for the marketing campaign team",
+    "category": "software",
+    "items": [
+      {
+        "name": "CloudNimbus analytics add-on (1 year)",
+        "quantity": 1,
+        "unit_price": 3000
+      }
+    ],
+    "total_amount": 3000,
+    "currency": "USD",
+    "vendor": "CloudNimbus",
+    "department": "marketing",
+    "cost_center": "MKT-7",
+    "justification": "the 6-person campaign team needs to build dashboards",
+    "provided_documents": [
+      "security_assessment"
+    ],
+    "quotes_count": null
+  },
+  "checks": [
+    {
+      "check_id": "vendor",
+      "status": "pass",
+      "detail": "CloudNimbus is an approved vendor (contract until 2027-01-31).",
+      "evidence": [
+        "tool:check_vendor#1"
+      ]
+    },
+    {
+      "check_id": "completeness",
+      "status": "pass",
+      "detail": "All mandatory request fields are present.",
+      "evidence": []
+    },
+    {
+      "check_id": "budget",
+      "status": "fail",
+      "detail": "Total $3,000.00 exceeds remaining budget $400.00 (2026-Q4).",
+      "evidence": [
+        "tool:get_budget#1"
+      ]
+    },
+    {
+      "check_id": "approval_route",
+      "status": "pass",
+      "detail": "Requires approval by: department_head, it.",
+      "evidence": [
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "quotes",
+      "status": "pass",
+      "detail": "1 quote(s) required; vendor quote provided.",
+      "evidence": [
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "justification",
+      "status": "pass",
+      "detail": "A business justification is provided.",
+      "evidence": []
+    },
+    {
+      "check_id": "documents",
+      "status": "fail",
+      "detail": "Missing documents: license_user_list.",
+      "evidence": [
+        "tool:get_required_documents#1"
+      ]
+    }
+  ],
+  "violations": [
+    {
+      "rule_id": "BUD-001#2.1",
+      "severity": "high",
+      "detail": "Total $3,000.00 exceeds the remaining software budget of $400.00 for 2026-Q4.",
+      "evidence": [
+        "tool:get_budget#1"
+      ]
+    }
+  ],
+  "missing_information": [
+    "license_user_list"
+  ],
+  "approval_route": [
+    "department_head",
+    "it"
+  ],
+  "recommendations": [
+    "Resubmit with a CFO-approved budget exception that names the budget line absorbing the cost (BUD-001 §2.1)."
+  ],
+  "flags": [],
+  "verification": {
+    "verifier_model": "claude-sonnet-5-5",
+    "verdict": "ok",
+    "unsupported_claims": [],
+    "invalid_evidence": [],
+    "notes": "Vendor claim is grounded.",
+    "revisions": 0
+  },
+  "prompt_version": "v1",
+  "summary": "Recommendation: RECOMMEND REJECTION (confidence 95%)\nRequest: CloudNimbus analytics add-on licence for the marketing campaign team — $3,000.00 (marketing, software)\n\nChecks:\n  [FAIL] budget: Total $3,000.00 exceeds remaining budget $400.00 (2026-Q4).\n  [FAIL] documents: Missing documents: license_user_list.\n  [PASS] vendor: CloudNimbus is an approved vendor (contract until 2027-01-31).\n  [PASS] completeness: All mandatory request fields are present.\n  [PASS] approval route: Requires approval by: department_head, it.\n  [PASS] quotes: 1 quote(s) required; vendor quote provided.\n  [PASS] justification: A business justification is provided.\n\nPolicy violations:\n  - [high] BUD-001#2.1: Total $3,000.00 exceeds the remaining software budget of $400.00 for 2026-Q4.\n\nMissing information:\n  - license user list\n\nApproval route: department head → it\n\nNext steps:\n  - Resubmit with a CFO-approved budget exception that names the budget line absorbing the cost (BUD-001 §2.1).\n\nThis is an automated pre-check. The final decision is made by the approvers listed above.",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "decision": "recommend_reject",
+  "mustIncludeChecks": {
+    "budget": "fail"
+  },
+  "mustIncludeViolations": [
+    "BUD-001#2.1"
+  ]
+}

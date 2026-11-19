@@ -1,0 +1,12 @@
+{
+  "_comment": "Mock price benchmark (USD per unit, excl. tax). Used by get_price_benchmark.",
+  "items": [
+    {"key": "developer laptop", "aliases": ["laptop", "notebook", "macbook", "dev laptop"], "min": 1100, "max": 2000, "policy_ref": "HW-STD-001#2.2"},
+    {"key": "standard laptop", "aliases": ["office laptop", "business laptop"], "min": 700, "max": 1300, "policy_ref": "HW-STD-001#2.3"},
+    {"key": "monitor", "aliases": ["display", "screen"], "min": 150, "max": 600, "policy_ref": "HW-STD-001#4.1"},
+    {"key": "docking station", "aliases": ["dock"], "min": 120, "max": 350, "policy_ref": null},
+    {"key": "keyboard", "aliases": ["mouse", "peripheral"], "min": 20, "max": 200, "policy_ref": null},
+    {"key": "saas seat (monthly)", "aliases": ["seat", "license", "licence", "subscription"], "min": 5, "max": 80, "policy_ref": null},
+    {"key": "contractor day rate", "aliases": ["developer day", "consultant day", "day rate"], "min": 300, "max": 900, "policy_ref": "SVC-001#3.2"}
+  ]
+}

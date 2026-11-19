@@ -1,0 +1,92 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "One-year CloudNimbus CRM subscription for 20 sales reps",
+        "category": "software",
+        "items": [{ "name": "CloudNimbus CRM seat (1 year)", "quantity": 20, "unit_price": null }],
+        "total_amount": 6000,
+        "currency": "USD",
+        "vendor": "CloudNimbus",
+        "department": "sales",
+        "cost_center": "SAL-200",
+        "justification": "replace spreadsheets for pipeline tracking for 20 sales reps",
+        "provided_documents": ["vendor_quotes"],
+        "quotes_count": 1
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": [
+          "SaaS security assessment",
+          "three quotes threshold purchases above 5000"
+        ],
+        "rationale": "SaaS subscription above the 3-quote threshold."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": { "query": "SaaS security assessment", "category": "software", "top_k": 5 }
+        },
+        { "name": "get_budget", "input": { "department": "sales", "category": "software" } },
+        { "name": "check_vendor", "input": { "vendor_name": "CloudNimbus" } },
+        {
+          "name": "get_approval_route",
+          "input": { "amount": 6000, "currency": "USD", "category": "software" }
+        },
+        {
+          "name": "get_required_documents",
+          "input": {
+            "category": "software",
+            "amount": 6000,
+            "currency": "USD",
+            "vendor_status": "approved"
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "needs_info",
+        "confidence": 0.8,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "CloudNimbus is an approved software vendor.",
+            "evidence": ["tool:check_vendor#1"]
+          },
+          {
+            "check_id": "documents",
+            "status": "fail",
+            "detail": "A security assessment and a licence user list are required for SaaS.",
+            "evidence": ["tool:get_required_documents#1", "tool:search_policies#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": ["security assessment", "list of licence users", "2 more quotes"],
+        "recommendations": [
+          "Ask IT Security for the CloudNimbus assessment and collect two competing quotes."
+        ]
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

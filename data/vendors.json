@@ -1,0 +1,14 @@
+{
+  "_comment": "Approved vendor registry (VEN-001). Fictional companies.",
+  "vendors": [
+    {"name": "TechSupply", "aliases": ["Tech Supply", "TechSupply Inc"], "status": "approved", "categories": ["hardware"], "contract_until": "2027-03-31", "notes": "Hardware framework agreement; does not waive the 3-quote rule"},
+    {"name": "OfficeHub", "aliases": ["Office Hub"], "status": "approved", "categories": ["hardware"], "contract_until": "2027-06-30", "notes": null},
+    {"name": "CloudNimbus", "aliases": ["Cloud Nimbus"], "status": "approved", "categories": ["software"], "contract_until": "2027-01-31", "notes": "SOC 2 Type II on file"},
+    {"name": "DataLens Analytics", "aliases": ["DataLens"], "status": "pending", "categories": ["software"], "contract_until": null, "notes": "Onboarding started, sanctions screening outstanding"},
+    {"name": "DevPartners", "aliases": ["Dev Partners"], "status": "approved", "categories": ["services"], "contract_until": "2026-12-31", "notes": null},
+    {"name": "BrightAgency", "aliases": ["Bright Agency"], "status": "approved", "categories": ["services"], "contract_until": "2027-05-31", "notes": null},
+    {"name": "OldWare Systems", "aliases": ["OldWare"], "status": "approved", "categories": ["software"], "contract_until": "2026-06-30", "notes": "Contract expired"},
+    {"name": "ShadyCorp", "aliases": ["Shady Corp"], "status": "blacklisted", "categories": [], "contract_until": null, "notes": "Fraud investigation"},
+    {"name": "QuickParts Ltd", "aliases": ["QuickParts"], "status": "blacklisted", "categories": [], "contract_until": null, "notes": "Sanctions"}
+  ]
+}

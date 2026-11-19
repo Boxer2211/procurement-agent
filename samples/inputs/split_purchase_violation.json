@@ -1,0 +1,5 @@
+{
+  "slug": "split_purchase_violation",
+  "business_case": "Attempt to split a purchase to avoid the 3-quote threshold",
+  "request": "Engineering needs 8 laptops at $1,500 each from TechSupply ($12,000 total). To avoid the three-quote rule, can we split it into three orders under $5,000? Cost center ENG-001."
+}

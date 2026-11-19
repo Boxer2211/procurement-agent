@@ -1,0 +1,19 @@
+{
+  "status": "completed",
+  "decision": "needs_info",
+  "mustIncludeChecks": {
+    "documents": "fail",
+    "quotes": "fail",
+    "vendor": "pass"
+  },
+  "mustIncludeMissing": [
+    "statement_of_work",
+    "nda",
+    "master_services_agreement"
+  ],
+  "approvalRoute": [
+    "department_head",
+    "finance",
+    "legal"
+  ]
+}

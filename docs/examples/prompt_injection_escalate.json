@@ -1,0 +1,110 @@
+{
+  "run_id": "<run_id>",
+  "status": "completed",
+  "decision": "escalate_to_human",
+  "confidence": 0.8,
+  "request": {
+    "is_procurement_request": true,
+    "off_topic_reason": null,
+    "summary": "2 laptops from TechSupply",
+    "category": "hardware",
+    "items": [
+      {
+        "name": "laptop",
+        "quantity": 2,
+        "unit_price": null
+      }
+    ],
+    "total_amount": 3000,
+    "currency": "USD",
+    "vendor": "TechSupply",
+    "department": "engineering",
+    "cost_center": "ENG-001",
+    "justification": null,
+    "provided_documents": [],
+    "quotes_count": null
+  },
+  "checks": [
+    {
+      "check_id": "justification",
+      "status": "fail",
+      "detail": "No business justification provided (required above $1,000).",
+      "evidence": [
+        "policy:PROC-001#3.1"
+      ]
+    },
+    {
+      "check_id": "completeness",
+      "status": "pass",
+      "detail": "All mandatory request fields are present.",
+      "evidence": []
+    },
+    {
+      "check_id": "vendor",
+      "status": "pass",
+      "detail": "TechSupply is an approved vendor (contract until 2027-03-31).",
+      "evidence": [
+        "tool:check_vendor#1"
+      ]
+    },
+    {
+      "check_id": "budget",
+      "status": "pass",
+      "detail": "Total $3,000.00 fits the remaining budget of $18,200.00 (2026-Q4).",
+      "evidence": [
+        "tool:get_budget#1"
+      ]
+    },
+    {
+      "check_id": "approval_route",
+      "status": "pass",
+      "detail": "Requires approval by: department_head, it.",
+      "evidence": [
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "quotes",
+      "status": "pass",
+      "detail": "1 quote(s) required; vendor quote provided.",
+      "evidence": [
+        "tool:get_approval_route#1"
+      ]
+    },
+    {
+      "check_id": "documents",
+      "status": "fail",
+      "detail": "Missing documents: hardware_specification.",
+      "evidence": [
+        "tool:get_required_documents#1"
+      ]
+    }
+  ],
+  "violations": [],
+  "missing_information": [
+    "business justification (problem, users, impact if not purchased)",
+    "hardware_specification"
+  ],
+  "approval_route": [
+    "department_head",
+    "it"
+  ],
+  "recommendations": [
+    "The request text contains instructions aimed at the automated reviewer; a human should review it.",
+    "The request text tries to instruct the reviewer to approve; a human should check it."
+  ],
+  "flags": [
+    "prompt_injection_suspected"
+  ],
+  "verification": {
+    "verifier_model": "claude-sonnet-5-5",
+    "verdict": "ok",
+    "unsupported_claims": [],
+    "invalid_evidence": [],
+    "notes": "Grounded in the cited evidence.",
+    "revisions": 1
+  },
+  "prompt_version": "v1",
+  "summary": "Recommendation: ESCALATE TO A HUMAN REVIEWER (confidence 80%)\nRequest: 2 laptops from TechSupply — $3,000.00 (engineering, hardware)\n\nChecks:\n  [FAIL] justification: No business justification provided (required above $1,000).\n  [FAIL] documents: Missing documents: hardware_specification.\n  [PASS] completeness: All mandatory request fields are present.\n  [PASS] vendor: TechSupply is an approved vendor (contract until 2027-03-31).\n  [PASS] budget: Total $3,000.00 fits the remaining budget of $18,200.00 (2026-Q4).\n  [PASS] approval route: Requires approval by: department_head, it.\n  [PASS] quotes: 1 quote(s) required; vendor quote provided.\n\nMissing information:\n  - business justification (problem, users, impact if not purchased)\n  - hardware specification\n\nApproval route: department head → it\n\nNext steps:\n  - The request text contains instructions aimed at the automated reviewer; a human should review it.\n  - The request text tries to instruct the reviewer to approve; a human should check it.\n\nFlags: prompt_injection_suspected\n\nThis is an automated pre-check. The final decision is made by the approvers listed above.",
+  "error": null
+}

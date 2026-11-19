@@ -1,0 +1,37 @@
+# Enforced thresholds. Text source of truth: PROC-002 / PROC-001 §4 / SW-001 §4 / SVC-001 §2.3.
+currency: USD
+fx_to_usd:          # Finance reference rates (PROC-002#1.2); demo values
+  USD: 1.0
+  EUR: 1.08
+  GBP: 1.27
+  UAH: 0.024
+levels:
+  - max_amount: 1000
+    approvers: [line_manager]
+    min_quotes: 1
+    rule_id: "PROC-002#2.1"
+  - max_amount: 5000
+    approvers: [department_head]
+    min_quotes: 1
+    rule_id: "PROC-002#2.2"
+  - max_amount: 25000
+    approvers: [department_head, finance]
+    min_quotes: 3
+    rule_id: "PROC-002#2.3"
+  - max_amount: 100000
+    approvers: [department_head, finance, cfo]
+    min_quotes: 3
+    rule_id: "PROC-002#2.4"
+  - max_amount: null
+    approvers: [department_head, finance, cfo, ceo]
+    min_quotes: 3
+    tender_required: true
+    rule_id: "PROC-002#2.5"
+additional_approvers:
+  - categories: [hardware, software]
+    approver: it
+    rule_id: "PROC-002#3.1"
+  - categories: [services, software]
+    min_amount_exclusive: 10000
+    approver: legal
+    rule_id: "PROC-002#3.2"

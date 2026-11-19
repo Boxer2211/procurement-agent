@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "decision": "recommend_reject",
+  "mustIncludeFlags": [
+    "split_purchase_suspected"
+  ],
+  "mustIncludeViolations": [
+    "PROC-001#5.1"
+  ]
+}

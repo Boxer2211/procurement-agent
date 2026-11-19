@@ -1,0 +1,101 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "2 Dell P2723 27-inch monitors for a new designer from OfficeHub",
+        "category": "hardware",
+        "items": [
+          {
+            "name": "monitor Dell P2723 27-inch",
+            "quantity": 2,
+            "unit_price": 450
+          }
+        ],
+        "total_amount": 900,
+        "currency": "USD",
+        "vendor": "OfficeHub",
+        "department": "engineering",
+        "cost_center": "ENG-114",
+        "justification": "for the new designer",
+        "provided_documents": ["hardware_specification", "vendor_quotes"],
+        "quotes_count": 1
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": ["monitor maximum unit price", "single quote purchases up to 5000"],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "monitor maximum unit price",
+            "category": "hardware",
+            "top_k": 5
+          }
+        },
+        {
+          "name": "check_vendor",
+          "input": {
+            "vendor_name": "OfficeHub"
+          }
+        },
+        {
+          "name": "get_budget",
+          "input": {
+            "department": "engineering",
+            "category": "hardware"
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "recommend_approve",
+        "confidence": 0.9,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "pass",
+            "detail": "OfficeHub is an approved hardware vendor.",
+            "evidence": ["tool:check_vendor#1"]
+          },
+          {
+            "check_id": "budget",
+            "status": "pass",
+            "detail": "$900 fits the remaining $18,200 hardware budget.",
+            "evidence": ["tool:get_budget#1"]
+          },
+          {
+            "check_id": "price",
+            "status": "pass",
+            "detail": "$450 per monitor is below the $600 cap.",
+            "evidence": ["tool:search_policies#1"]
+          }
+        ],
+        "violations": [],
+        "missing_information": [],
+        "recommendations": []
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

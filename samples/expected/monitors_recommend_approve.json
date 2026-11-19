@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "decision": "recommend_approve",
+  "mustIncludeChecks": {
+    "budget": "pass",
+    "vendor": "pass",
+    "quotes": "pass",
+    "documents": "pass"
+  },
+  "approvalRoute": [
+    "line_manager",
+    "it"
+  ]
+}

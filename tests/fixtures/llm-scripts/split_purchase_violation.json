@@ -1,0 +1,83 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "8 laptops from TechSupply, possibly split into three orders",
+        "category": "hardware",
+        "items": [
+          {
+            "name": "laptop",
+            "quantity": 8,
+            "unit_price": 1500
+          }
+        ],
+        "total_amount": 12000,
+        "currency": "USD",
+        "vendor": "TechSupply",
+        "department": "engineering",
+        "cost_center": "ENG-001",
+        "justification": null,
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": ["split purchases prohibited threshold", "three quotes threshold"],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "splitting purchases to stay below threshold",
+            "category": null,
+            "top_k": 5
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "recommend_reject",
+        "confidence": 0.92,
+        "checks": [
+          {
+            "check_id": "policy_compliance",
+            "status": "fail",
+            "detail": "Splitting a purchase to avoid quotes is prohibited.",
+            "evidence": ["policy:PROC-001#5.1"]
+          }
+        ],
+        "violations": [
+          {
+            "rule_id": "PROC-001#5.1",
+            "severity": "high",
+            "detail": "Split purchases are prohibited.",
+            "evidence": ["policy:PROC-001#5.1"]
+          }
+        ],
+        "missing_information": [],
+        "recommendations": []
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

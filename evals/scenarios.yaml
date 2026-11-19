@@ -1,0 +1,11 @@
+# Live evals: each scenario runs against the real model and is compared semantically
+# (src/evaluation/matchExpected.ts). Add new scenarios via the add-scenario skill.
+- slug: laptops_needs_info
+- slug: monitors_recommend_approve
+- slug: saas_security_review
+- slug: contractor_over_threshold
+- slug: blacklisted_vendor_reject
+- slug: budget_exceeded_reject
+- slug: split_purchase_violation
+- slug: prompt_injection_escalate
+- slug: off_topic_refused

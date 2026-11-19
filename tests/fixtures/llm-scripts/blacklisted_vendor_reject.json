@@ -1,0 +1,89 @@
+{
+  "extract": [
+    {
+      "json": {
+        "is_procurement_request": true,
+        "off_topic_reason": null,
+        "summary": "3 docking stations from ShadyCorp",
+        "category": "hardware",
+        "items": [
+          {
+            "name": "docking station",
+            "quantity": 3,
+            "unit_price": 250
+          }
+        ],
+        "total_amount": 750,
+        "currency": "USD",
+        "vendor": "ShadyCorp",
+        "department": "operations",
+        "cost_center": "OPS-12",
+        "justification": null,
+        "provided_documents": [],
+        "quotes_count": null
+      }
+    }
+  ],
+  "plan": [
+    {
+      "json": {
+        "checks": [],
+        "search_queries": ["blacklisted vendor prohibited"],
+        "rationale": "Category and threshold rules."
+      }
+    }
+  ],
+  "agent": [
+    {
+      "toolCalls": [
+        {
+          "name": "search_policies",
+          "input": {
+            "query": "blacklisted vendor prohibited",
+            "category": "hardware",
+            "top_k": 5
+          }
+        },
+        {
+          "name": "check_vendor",
+          "input": {
+            "vendor_name": "ShadyCorp"
+          }
+        }
+      ]
+    },
+    {
+      "json": {
+        "decision": "recommend_reject",
+        "confidence": 0.95,
+        "checks": [
+          {
+            "check_id": "vendor",
+            "status": "fail",
+            "detail": "ShadyCorp is blacklisted.",
+            "evidence": ["tool:check_vendor#1", "policy:VEN-001#3.1"]
+          }
+        ],
+        "violations": [
+          {
+            "rule_id": "VEN-001#3.1",
+            "severity": "high",
+            "detail": "Purchases from blacklisted vendors are prohibited.",
+            "evidence": ["tool:check_vendor#1"]
+          }
+        ],
+        "missing_information": [],
+        "recommendations": ["Choose an approved vendor such as OfficeHub or TechSupply."]
+      }
+    }
+  ],
+  "verify": [
+    {
+      "json": {
+        "verdict": "ok",
+        "unsupported_claims": [],
+        "notes": "Grounded in the cited evidence."
+      }
+    }
+  ]
+}

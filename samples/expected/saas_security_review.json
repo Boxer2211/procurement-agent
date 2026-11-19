@@ -1,0 +1,18 @@
+{
+  "status": "completed",
+  "decision": "needs_info",
+  "mustIncludeChecks": {
+    "budget": "pass",
+    "vendor": "pass",
+    "documents": "fail",
+    "quotes": "fail"
+  },
+  "mustIncludeMissing": [
+    "security_assessment"
+  ],
+  "approvalRoute": [
+    "department_head",
+    "finance",
+    "it"
+  ]
+}

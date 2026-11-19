@@ -1,0 +1,40 @@
+{
+  "run_id": "<run_id>",
+  "status": "refused",
+  "decision": "refused",
+  "confidence": 0.9,
+  "request": {
+    "is_procurement_request": false,
+    "off_topic_reason": "asks for a poem, not a purchase",
+    "summary": "Request for a poem",
+    "category": "other",
+    "items": [],
+    "total_amount": null,
+    "currency": "USD",
+    "vendor": null,
+    "department": null,
+    "cost_center": null,
+    "justification": null,
+    "provided_documents": [],
+    "quotes_count": null
+  },
+  "checks": [],
+  "violations": [],
+  "missing_information": [],
+  "approval_route": [],
+  "recommendations": [],
+  "flags": [
+    "off_topic"
+  ],
+  "verification": {
+    "verifier_model": null,
+    "verdict": "skipped",
+    "unsupported_claims": [],
+    "invalid_evidence": [],
+    "notes": "",
+    "revisions": 0
+  },
+  "prompt_version": "v1",
+  "summary": "This assistant only reviews purchase requests for company goods and services; the message was not reviewed (asks for a poem, not a purchase).",
+  "error": null
+}
