@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ReviewResultSchema } from "../../../src/domain/schemas.js";
+import { isTransientError } from "../../../src/graph/builder.js";
 import { NotAwaitingDecisionError, RunNotFoundError } from "../../../src/graph/service.js";
 import { ScriptedFakeLLM } from "../../../src/llm/fake.js";
 import {
@@ -398,15 +399,28 @@ describe("error handling", () => {
   });
 
   it("returns an error result when the graph itself throws", async () => {
+    let calls = 0;
     const broken: LLMClient = {
-      complete: (_req: LLMRequest): Promise<LLMResponse> => Promise.reject(new TypeError("boom")),
+      complete: (_req: LLMRequest): Promise<LLMResponse> => {
+        calls += 1;
+        return Promise.reject(new TypeError("boom"));
+      },
     };
     const app = await createTestApp(broken);
     const { result } = await app.service.review(LAPTOP_TEXT);
     expect(result).toMatchObject({ status: "error", decision: "escalate_to_human" });
     expect(result.error).toMatch(/boom/);
+    // Programming errors are not transient: the node retry policy must not repeat them.
+    expect(calls).toBe(1);
     const trace = await app.service.getTrace(result.run_id);
     expect(trace.at(-1)).toMatchObject({ name: "run_failed" });
+  });
+
+  it("retries only transient LLM errors", () => {
+    expect(isTransientError(new LLMError("busy", "overloaded", true))).toBe(true);
+    expect(isTransientError(new LLMError("declined", "refusal", false))).toBe(false);
+    expect(isTransientError(new TypeError("boom"))).toBe(false);
+    expect(isTransientError("busy")).toBe(false);
   });
 
   it("gives up after retryable errors persist", async () => {

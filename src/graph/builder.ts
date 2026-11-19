@@ -3,6 +3,7 @@
 import type { BaseCheckpointSaver } from "@langchain/langgraph";
 import { END, START, StateGraph } from "@langchain/langgraph";
 import type { ReferenceData } from "../db/referenceData.js";
+import { LLMError } from "../llm/types.js";
 import type { GraphDeps } from "./deps.js";
 import { makeAgentNode, routeAfterAgent } from "./nodes/agent.js";
 import { makeComposeNode, routeAfterCompose } from "./nodes/compose.js";
@@ -16,16 +17,23 @@ import { makeToolsNode } from "./nodes/tools.js";
 import { makeVerifyNode, routeAfterVerify } from "./nodes/verify.js";
 import { ReviewState } from "./state.js";
 
+/** Node retry predicate: only transient LLM failures (rate limit, overload, connection). */
+export function isTransientError(err: unknown): boolean {
+  return err instanceof LLMError && err.retryable;
+}
+
 export function buildGraph(
   deps: GraphDeps,
   ref: ReferenceData,
   checkpointer?: BaseCheckpointSaver,
 ) {
   // LLM nodes rethrow retryable errors (rate limit / overload that survived SDK retries).
+  // Only those are retried; programming errors and non-retryable LLM errors fail fast.
   const llmRetry = {
     maxAttempts: 3,
     initialInterval: deps.retryInitialIntervalMs ?? 2_000,
     backoffFactor: 2,
+    retryOn: isTransientError,
   };
 
   return new StateGraph(ReviewState)
